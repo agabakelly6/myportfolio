@@ -1,5 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import profilePhoto from './assets/profile.png'
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 const projects = [
   {
@@ -34,9 +39,23 @@ const projects = [
 
 function Nav() {
   const [isHireMenuOpen, setIsHireMenuOpen] = useState(false)
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.from('.brand, .navlinks a, .nav-actions', {
+        y: -20,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power2.out',
+      })
+    },
+    { scope: containerRef }
+  )
 
   return (
-    <nav>
+    <nav ref={containerRef}>
       <div className="wrap">
         <div className="brand">agaba<span>.</span>kelly<span>()</span></div>
         <div className="navlinks">
@@ -86,8 +105,29 @@ function Nav() {
 }
 
 function Hero() {
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+      tl.from('.eyebrow', { y: 24, opacity: 0, duration: 0.6 })
+        .from('h1', { y: 30, opacity: 0, duration: 0.7 }, '-=0.35')
+        .from('.hero-badge', { y: 24, opacity: 0, duration: 0.6 }, '-=0.4')
+        .from('.lead', { y: 24, opacity: 0, duration: 0.6 }, '-=0.4')
+        .from('.hero-ctas .btn', { y: 20, opacity: 0, duration: 0.5, stagger: 0.1 }, '-=0.35')
+        .from('.stack-row span', { y: 16, opacity: 0, duration: 0.4, stagger: 0.08 }, '-=0.3')
+        .from(
+          '.photo-card',
+          { scale: 0.92, opacity: 0, duration: 0.8, ease: 'power2.out' },
+          '-=0.9'
+        )
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <header className="hero">
+    <header className="hero" ref={containerRef}>
       <div className="wrap">
         <div>
           <div className="eyebrow">
@@ -134,8 +174,27 @@ function Hero() {
 }
 
 function LiveWork() {
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.from('.review-card', {
+        y: 40,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+      })
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <section id="work">
+    <section id="work" ref={containerRef}>
       <div className="wrap">
         <div className="section-head">
           <div>
@@ -175,8 +234,27 @@ function LiveWork() {
 }
 
 function CaseStudies() {
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.from('.case-row', {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+      })
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <section id="cases">
+    <section id="cases" ref={containerRef}>
       <div className="wrap">
         <div className="section-head">
           <div>
@@ -211,8 +289,27 @@ function CaseStudies() {
 }
 
 function Testimonials() {
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.from('.testi-row', {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+      })
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <section id="testimonials">
+    <section id="testimonials" ref={containerRef}>
       <div className="wrap">
         <div className="section-head">
           <div>
@@ -248,8 +345,28 @@ function Testimonials() {
 }
 
 function Skills() {
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.from('.skill-pill', {
+        y: 20,
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 85%',
+        },
+      })
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <section id="skills">
+    <section id="skills" ref={containerRef}>
       <div className="wrap">
         <div className="section-head">
           <div>
@@ -274,8 +391,39 @@ function Skills() {
 }
 
 function Contact() {
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.from('.contact-grid > div', {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+      })
+
+      gsap.from('.contact-item', {
+        y: 16,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 70%',
+        },
+      })
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <section id="contact">
+    <section id="contact" ref={containerRef}>
       <div className="wrap contact-grid">
         <div>
           <span className="tag">// GET IN TOUCH</span>
@@ -324,8 +472,27 @@ function Contact() {
 }
 
 function Footer() {
+  const containerRef = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.from('.wrap > *', {
+        y: 16,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 90%',
+        },
+      })
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <footer>
+    <footer ref={containerRef}>
       <div className="wrap">
         <div>© 2026 Agaba Kelly. Built from scratch, line by line.</div>
         <div className="status">
